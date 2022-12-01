@@ -93,17 +93,14 @@
 // function plius (x) {
 //   return x + 200 
 // }
-// let z = plius (250)
-
+// let z = plius (250);
 
 //block scope
 // function displaySquare() {
 //   let z = 10;
 //   console.log(z);
 // }
-// displaySquare()
-
-
+// displaySquare();
 
 // let person = {
 //   name: "Kristine",
@@ -127,11 +124,79 @@
 //    document.write(this.parents.mother.name + " " + this.parents.mother.lastName)
 //   }
 // }
-
 // person.getFullName ()
 // let hasName = "name" !== undefined;
 
-// for ()
+// function createUser (pName, pAge){
+//   return {
+//     name: pName,
+//     age: pAge,
+//     displayInfo: function (){
+//       document.write(this.name + this.age)
+//     }
+//   }
+// }
+// let tom = createUser("Tom", 26);
+// tom.displayInfo();
+// let giorgi = createUser("Giorgi", 30);
+// giorgi.displayInfo();
 
+//ფუნქციების გაერთიანება
+// function createUser (pName, pAge){
+//   return {
+//     name: pName,
+//     age: pAge,
+//     displayInfo: function (){
+//       document.write(this.name + this.age)
+//     },
+//     driveCar: function (car){
+//       document.write(this.name + " ატარებს მანქანას" + car.name + car.year)
+//     }
+//   }
+// }
+// function createCar (mName, mYear){
+//   return {
+//     name: mName,
+//     year: mYear
+//   }
+// }
+// let tom = createUser("Tom", 26);
+// tom.displayInfo();
+// let tesla = createCar("Tesla", 2022);
+// tom.driveCar(tesla);
 
+//კონსტრუქტორი: სახელი ენიჭება დიდი ასოთი
+// function User (pName, pAge){
+//   this.name = pName,
+//   this.age = pAge
+//   this.displayInfo = function() {
+//     document.write("სახელი:" + this.name + "ასაკი:" + this.age)
+//   }
+// }
+// let tom = new User ("Tom", 26);
+// tom.displayInfo();
 
+//კონსტრუქტორი:
+//Car ტიპის კონსტრუქტორი
+function Car (mName, mYear){
+  this.name = mName,
+  this.year = mYear,
+  this.getCarInfo = function () {
+    document.write(this.name = this.year)
+  }
+}
+//User ტიპის კონსტრუქტორი
+function User (pName, pAge){
+  this.name = pName,
+  this.age = pAge,
+  this.driveCar = function(car) {
+    document.write(this.name + car.name)
+  }
+  this.displayInfo = function () {
+    document.write (this.name + this.age)
+  }
+}
+let tom = new User ("Tom", 26);
+tom.displayInfo ();
+let tesla = new Car ("Tesla", 2022);
+tom.driveCar(tesla);
