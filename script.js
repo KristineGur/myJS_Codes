@@ -165,7 +165,7 @@
 // let tesla = createCar("Tesla", 2022);
 // tom.driveCar(tesla);
 
-//კონსტრუქტორი: სახელი ენიჭება დიდი ასოთი
+//კონსტრუქტორი: სახელი ენიჭება დიდი ასოთი. კონსტრუქტორი იგივე გეგმაა იმავე "ტიპის" მრავალი ობიექტის შესაქმნელად. ქვემოთ მოცემულ მაგალითში function User(pName, pAge) არის ობიექტის კონსტრუქტორის ფუნქცია. იმავე ტიპის ობიექტები იქმნება კონსტრუქტორის ფუნქციის გამოძახებით new საკვანძო სიტყვით:
 // function User (pName, pAge){
 //   this.name = pName,
 //   this.age = pAge
@@ -176,27 +176,132 @@
 // let tom = new User ("Tom", 26);
 // tom.displayInfo();
 
-//კონსტრუქტორი:
+//კონსტრუქტორი: Car და User ტიპის კონსტრუქტორების გაერთიანება
 //Car ტიპის კონსტრუქტორი
-function Car (mName, mYear){
-  this.name = mName,
-  this.year = mYear,
-  this.getCarInfo = function () {
-    document.write(this.name = this.year)
-  }
-}
-//User ტიპის კონსტრუქტორი
-function User (pName, pAge){
-  this.name = pName,
-  this.age = pAge,
-  this.driveCar = function(car) {
-    document.write(this.name + car.name)
-  }
-  this.displayInfo = function () {
-    document.write (this.name + this.age)
-  }
-}
-let tom = new User ("Tom", 26);
-tom.displayInfo ();
-let tesla = new Car ("Tesla", 2022);
-tom.driveCar(tesla);
+// function Car (mName, mYear){
+//   this.name = mName,
+//   this.year = mYear,
+//   this.getCarInfo = function () {
+//     document.write(this.name + this.year)
+//   }
+// }
+// //User ტიპის კონსტრუქტორი
+// function User (pName, pAge){
+//   this.name = pName,
+//   this.age = pAge,
+//   this.driveCar = function(car) {
+//     document.write(this.name + car.name)
+//   }
+//   this.displayInfo = function () {
+//     document.write (this.name + this.age)
+//   }
+// }
+// let tom = new User ("Tom", 26);
+// tom.displayInfo ();
+// let tesla = new Car ("Tesla", 2022);
+// tom.driveCar(tesla);
+
+
+//პროტოტიპი: ყველა ფუნქციას გააჩნია თვისება prototype, რომელიც წარმოადგენს ფუნქციის პროტოტიპს. ანუ თვისება User.prototype წარმოადგენს User ობიექტების პროტოტიპს. ყველა თვისება და მეთოდი, რომელიც განსაზღვრულია User.prototype-ში, იქნება საერთო ყველა User ობიექტისთვის.
+// function User(pName, pAge) {
+//   this.name = pName;
+//   this.age = pAge;
+//   this.displayInfo = function(){
+//     document.write("სახელი: " + this.name + "; ასაკი: " + this.age);
+//   };
+// };
+
+// User.prototype.hello = function (){
+//   document.write(this.name + " ამბობს: 'გამარჯობა!'");
+// };
+// User.prototype.maxAge = 110;
+
+// let tom = new User("ტომი", 26);
+// tom.hello();
+// let john = new User("ჯონი", 28);
+// john.hello();
+// console.log(tom.maxAge); // 110
+// console.log(john.maxAge); // 110
+
+
+//ინკაპსულაცია: წარმოადგენს ობიექტის მდგომარეობის დაფარვას გარე ზემოქმედებისაგან. მიუთითებლობისას ობიექტის ყველა თვისება წარმოადგენს საჯაროს და მათზე მიმართვა შესაძლებელია პროგრამის ნებისმიერი ადგილიდან.
+// function User (name, age) {
+//   this.name = name;
+//   let _age = age;
+//   this.displayInfo = function(){
+//     document.write(this.name + _age);
+//   };
+//   this.getAge = function() {
+//     return _age;
+//   }
+//   this.setAge = function(age) {
+//     if(typeof age === "number" && age >  0 && age < 110){
+//       return _age = age;
+//     } else {
+//       alert("Non Valueble Info");
+//     }
+//   }
+// }
+// let tom = new User ("Том", 26);
+// console.log(tom._age); // undefined - _age - ლოკალური ცვლადი
+// console.log(tom.getAge()); // 26
+// tom.setAge(32);
+// console.log(tom.getAge()); // 32
+// // tom.setAge("54"); // არასწორი მნიშვნელობა
+
+//call მეთოდი
+// function add(x, y){   
+//   return x + y;
+// }
+// let result = add.call(null, 3, 8);
+// console.log(result); // 11
+
+//call მეორე მაგალითი
+// function User (name, age){
+//   this.name = name;
+//   this.age = age;
+// }
+// let tom = new User ("Tom", 26);
+// function display() {
+//   document.write(this.name)
+// }
+// display.call (tom)    //Tom
+
+//apply მეთოდი: call()-ის მსგავსია. აქაც პირველ პარამეტრად გადაეცემა ობიექტი, რომლისთვისაც ხდება ფუნქციის გამოძახება. ხოლო მეორე პარამეტრად გადაეცემა არგუმენტების მასივი:
+// function add(x, y){   
+//   return x + y;
+// }
+// var result = add.apply(null, [3, 8]);
+// console.log(result);    // 11
+
+
+//მემკვიდრეობითობა, რაც საშუალებას იძლევა ობიექტების ახალი ტიპების შექმნისას, საჭიროებისას, შევინარჩუნოთ არსებული ტიპებისგან მემკვიდრეობით მიღებული ფუნქციონალი. მაგალითად, ვთქვათ გვაქვს ობიექტი User , რომელიც წარმოადგენსმომხმარებელს. ვთქვათ, ასევე გვაქვს ობიექტი Employee, რომელიც წარმოადგენს მომუშავეს. მაგრამ მომუშავე ამავე დროს მომხმარებელიცაა, შესაბამისად, მას უნდა ჰქონდეს ასევე User ობიექტის ყველა თვისება და მეთოდი.
+// მომხმარებლის კონსტრუქტორი
+// function User (name, age) {
+//   this.name = name;
+//   this.age = age;
+//   this.go = function(){
+//     document.write(this.name);
+//   }
+//   this.displayInfo = function(){
+//     document.write(this.name + this.age);
+//   };
+// }
+// User.prototype.maxage = 110;
+// // მომუშავის კონსტრუქტორი
+// function Employee(name, age, comp){
+//   User.call(this, name, age);
+//   this.company = comp;
+//   this.displayInfo = function(){
+//     document.write(this.name + this.age + this.company);
+//   };
+// }
+// Employee.prototype = Object.create(User.prototype);
+// let tom = new User("Tom", 26);
+// let bill = new Employee("Bill", 32, "Google");
+// tom.go();  //Tom26
+// bill.go();  //Bill32
+// tom.displayInfo(); //Tom26
+// bill.displayInfo();  //Bill32Google
+// console.log(bill.maxage); //110
+
